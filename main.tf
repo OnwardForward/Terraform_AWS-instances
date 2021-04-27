@@ -2,6 +2,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
+variable "instance_count" {
+  type = number
+  default = 5
+}
+
 resource "aws_security_group" "allow_egress" {
   name = "allow_egress"
 
@@ -25,6 +30,7 @@ resource "aws_security_group" "allow_ingress_ssh" {
 }
 
 resource "aws_instance" "web" {
+  count         = var.instance_count
   ami           = "ami-2757f631"
   instance_type = "t2.micro"
 
@@ -49,4 +55,6 @@ resource "aws_db_instance" "example" {
   engine            = "mysql"
   username          = "someone"
   password          = random_password.password.result
+  
+  skip_final_snapshot = true
 }
