@@ -7,6 +7,11 @@ variable "instance_count" {
   default = 5
 }
 
+variable "password_length" {
+  type = number
+  default = 10
+}
+
 resource "aws_security_group" "allow_egress" {
   name = "allow_egress"
 
@@ -44,7 +49,7 @@ resource "aws_instance" "web" {
 }
 
 resource "random_password" "password" {
-  length           = 16
+  length           = var.password_length
   special          = true
   override_special = "_%@"
 }
