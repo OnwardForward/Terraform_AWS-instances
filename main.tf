@@ -12,6 +12,13 @@ variable "password_length" {
   default = 10
 }
 
+variable "tags" {
+  type = map(string)
+  default = {
+    source = "tfc"
+  }
+}
+
 resource "aws_security_group" "allow_egress" {
   name = "allow_egress"
 
@@ -43,9 +50,7 @@ resource "aws_instance" "web" {
     aws_security_group.allow_ingress_ssh.name
   ]
   
-  tags = {
-    source = "tfc"
-  }
+  tags = var.tags
 
   provisioner "local-exec" {
     command = "echo 'IP address: ${self.private_ip}'"
