@@ -42,6 +42,10 @@ resource "aws_instance" "web" {
   security_groups = [
     aws_security_group.allow_ingress_ssh.name
   ]
+  
+  tags {
+    source = "tfc"
+  }
 
   provisioner "local-exec" {
     command = "echo 'IP address: ${self.private_ip}'"
