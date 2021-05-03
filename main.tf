@@ -43,7 +43,7 @@ resource "aws_instance" "web" {
     aws_security_group.allow_ingress_ssh.name
   ]
   
-  tags {
+  tags = {
     source = "tfc"
   }
 
