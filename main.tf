@@ -3,12 +3,12 @@ provider "aws" {
 }
 
 variable "instance_count" {
-  type = number
+  type    = number
   default = 5
 }
 
 variable "password_length" {
-  type = number
+  type    = number
   default = 10
 }
 
@@ -49,7 +49,7 @@ resource "aws_instance" "web" {
   security_groups = [
     aws_security_group.allow_ingress_ssh.name
   ]
-  
+
   tags = var.tags
 
   provisioner "local-exec" {
@@ -58,9 +58,8 @@ resource "aws_instance" "web" {
 }
 
 resource "random_password" "password" {
-  length           = var.password_length
-  special          = true
-  override_special = "_%@"
+  length  = var.password_length
+  special = false
 }
 
 resource "aws_db_instance" "example" {
@@ -69,6 +68,6 @@ resource "aws_db_instance" "example" {
   engine            = "mysql"
   username          = "someone"
   password          = random_password.password.result
-  
+
   skip_final_snapshot = true
 }
