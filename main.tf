@@ -57,17 +57,17 @@ resource "aws_instance" "web" {
   }
 }
 
-resource "random_password" "password" {
-  length  = var.password_length
-  special = false
-}
+# resource "random_password" "password" {
+#   length  = var.password_length
+#   special = false
+# }
 
-resource "aws_db_instance" "example" {
-  instance_class    = "db.t3.micro"
-  allocated_storage = 64
-  engine            = "mysql"
-  username          = "someone"
-  password          = random_password.password.result
-
-  skip_final_snapshot = true
-}
+# resource "aws_db_instance" "example" {
+#   instance_class    = "db.t3.micro"
+#   allocated_storage = 64
+#   engine            = "mysql"
+#   username          = "someone"
+#   password          = random_password.password.result
+# 
+#   skip_final_snapshot = true
+# }
